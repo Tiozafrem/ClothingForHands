@@ -1,0 +1,84 @@
+﻿<Window x:Class="ClothingForHands.View.Windows.ChangeMaterial"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClothingForHands.View.Windows"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterOwner"
+         Icon="/Resources/Одежда для ручек.ico" 
+        Title="Изменение материала" Height="420" Width="400" MinHeight="420" MinWidth="400">
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition/>
+            <RowDefinition Height="0.15*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Изменение материала"/>
+        <Image Source="/Resources/Одежда для ручек.png" HorizontalAlignment="Left" Margin="10"/>
+
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                   Name="TxtCount" Margin="5 0 0 0" FontSize="12"/>
+
+        <Button Content="Назад" HorizontalAlignment="Right" Margin="0 0 5 0" Click="CanselWindow"/>
+
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled">
+
+            <StackPanel>
+
+                <GroupBox Header="Имя материала" HorizontalAlignment="Stretch">
+                    <TextBox x:Name="TxbName" Text="{Binding NameMaterial}"/>
+                </GroupBox>
+                <GroupBox Header="Тип материала" HorizontalAlignment="Stretch">
+                    <ComboBox HorizontalAlignment="Left" Name="CmbType" DisplayMemberPath="NameTypeMaterial" SelectedItem="{Binding TypeMaterial}" />
+                </GroupBox>
+                <GroupBox Header="Количество на складе" HorizontalAlignment="Stretch">
+                    <TextBox x:Name="TxbNumberInStorage" Text="{Binding Count}"/>
+                </GroupBox>
+                <GroupBox Header="Единицы измерения" HorizontalAlignment="Stretch">
+                    <ComboBox HorizontalAlignment="Left" x:Name="CmbMetric" SelectedItem="{Binding TypeDimennsion1}" DisplayMemberPath="NameType"/>
+                </GroupBox>
+                <GroupBox Header="Количество в упаковке" HorizontalAlignment="Stretch">
+                    <TextBox x:Name="TxbNumberInPack" Text="{Binding CountInBox}"/>
+                </GroupBox>
+                <GroupBox Header="Минимальное количество" HorizontalAlignment="Stretch">
+                    <TextBox x:Name="TxbMinNumber" Text="{Binding MinCount}"/>
+                </GroupBox>
+                <GroupBox Header="Стоимость за единицу" HorizontalAlignment="Stretch">
+                    <TextBox x:Name="TxbPrice" Text="{Binding Price}"/>
+                </GroupBox>
+                <GroupBox Header="Подробное описание" HorizontalAlignment="Stretch">
+                    <TextBox x:Name="TxbDescription" Text="{Binding Desctiption}" AcceptsReturn="True" TextWrapping="Wrap" Height="80"/>
+                </GroupBox>
+                <Image  Width="150" Margin="15"  Name="image">
+                    <Image.Source>
+                        <Binding Path="Photo" >
+                            <Binding.TargetNullValue>
+                                <ImageSource>/Resources/picture.png</ImageSource>
+                            </Binding.TargetNullValue>
+                        </Binding>
+                    </Image.Source>
+                </Image>
+                <Button Click="NewImage" Content="Новое изображение" Width="150"/>
+                <GroupBox HorizontalAlignment="Stretch" Header="Возможные поставщики">
+                    <DataGrid x:Name="DtgSupplier" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridComboBoxColumn Width="1*" CanUserResize="False" x:Name="CmbSupplier" DisplayMemberPath="NameSupplier" SelectedValuePath="Id" SelectedValueBinding="{Binding Id}" Header="Имя возможного поставщика"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+                <GroupBox Header="Минимальная стоимость партии">
+                    <TextBlock Text="{Binding MinimalPrice}"/>
+                </GroupBox>
+            </StackPanel>
+        </ScrollViewer>
+
+
+        <!--<ComboBox IsEditable="True"/>-->
+        <Button Content="Сохранить" Click="Save" Grid.Row="2" HorizontalAlignment="Left" Margin="5 0 0 0" />
+        <Button Content="Удалить" Click="Delete" Grid.Row="2" HorizontalAlignment="Right" Margin="0 0 5 0" />
+
+    </Grid>
+</Window>

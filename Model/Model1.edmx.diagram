@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="2e4badea1f98411e93fa93871bd08688" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.History" Width="1.5" PointX="2.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Material" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.MaterialBySupplier" Width="1.5" PointX="5.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Supplier" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TypeDimennsion" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TypeMaterial" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TypeSupplier" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_Material_TypeDimennsion" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Material_TypeMaterial" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MaterialBySupplier_Material" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_MaterialBySupplier_Supplier" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Supplier_TypeSupplier" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

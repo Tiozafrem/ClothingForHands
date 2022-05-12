@@ -1,0 +1,18 @@
+﻿<Window x:Class="ClothingForHands.View.Windows.ChangeMinNumber"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ClothingForHands.View.Windows"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterOwner"
+         Icon="/Resources/Одежда для ручек.ico" 
+        Title="Минимальное количество" Height="120" Width="270" ResizeMode="NoResize">
+    <Grid>
+        <GroupBox Header="Изменить минимальное количество на" VerticalAlignment="Top" >
+            <TextBox Name="TxbNumber" Text="{Binding MaxNumber}"/>
+        </GroupBox>
+        <Button Click="Save" Content="Сохранить" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="8"/>
+        <Button Click="Close" Content="Отмена" VerticalAlignment="Bottom"  HorizontalAlignment="Left" Margin="8"/>
+    </Grid>
+</Window>

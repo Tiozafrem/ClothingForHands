@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameMaterial" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OldCount" Type="int" />
+          <Property Name="NewCount" Type="int" />
+          <Property Name="DateInsert" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Material">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameMaterial" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdTypeMaterial" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+          <Property Name="MinCount" Type="int" Nullable="false" />
+          <Property Name="CountInBox" Type="int" Nullable="false" />
+          <Property Name="TypeDimennsion" Type="int" Nullable="false" />
+          <Property Name="Photo" Type="varbinary(max)" />
+          <Property Name="Desctiption" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="MaterialBySupplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdMaterial" Type="int" Nullable="false" />
+          <Property Name="IdSupplier" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameSupplier" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdTypeSupplier" Type="int" Nullable="false" />
+          <Property Name="INN" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="Rating" Type="int" Nullable="false" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TypeDimennsion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameType" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TypeMaterial">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameTypeMaterial" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TypeSupplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameTypeSupplier" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Material_TypeDimennsion">
+          <End Role="TypeDimennsion" Type="Self.TypeDimennsion" Multiplicity="1" />
+          <End Role="Material" Type="Self.Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeDimennsion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="TypeDimennsion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Material_TypeMaterial">
+          <End Role="TypeMaterial" Type="Self.TypeMaterial" Multiplicity="1" />
+          <End Role="Material" Type="Self.Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeMaterial">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="IdTypeMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialBySupplier_Material">
+          <End Role="Material" Type="Self.Material" Multiplicity="1" />
+          <End Role="MaterialBySupplier" Type="Self.MaterialBySupplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaterialBySupplier">
+              <PropertyRef Name="IdMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialBySupplier_Supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
+          <End Role="MaterialBySupplier" Type="Self.MaterialBySupplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaterialBySupplier">
+              <PropertyRef Name="IdSupplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_TypeSupplier">
+          <End Role="TypeSupplier" Type="Self.TypeSupplier" Multiplicity="1" />
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeSupplier">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Supplier">
+              <PropertyRef Name="IdTypeSupplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище ModelContainer">
+          <EntitySet Name="History" EntityType="Self.History" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Material" EntityType="Self.Material" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MaterialBySupplier" EntityType="Self.MaterialBySupplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeDimennsion" EntityType="Self.TypeDimennsion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeMaterial" EntityType="Self.TypeMaterial" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypeSupplier" EntityType="Self.TypeSupplier" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Material_TypeDimennsion" Association="Self.FK_Material_TypeDimennsion">
+            <End Role="TypeDimennsion" EntitySet="TypeDimennsion" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Material_TypeMaterial" Association="Self.FK_Material_TypeMaterial">
+            <End Role="TypeMaterial" EntitySet="TypeMaterial" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialBySupplier_Material" Association="Self.FK_MaterialBySupplier_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="MaterialBySupplier" EntitySet="MaterialBySupplier" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialBySupplier_Supplier" Association="Self.FK_MaterialBySupplier_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="MaterialBySupplier" EntitySet="MaterialBySupplier" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_TypeSupplier" Association="Self.FK_Supplier_TypeSupplier">
+            <End Role="TypeSupplier" EntitySet="TypeSupplier" />
+            <End Role="Supplier" EntitySet="Supplier" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameMaterial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OldCount" Type="Int32" />
+          <Property Name="NewCount" Type="Int32" />
+          <Property Name="DateInsert" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Material">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameMaterial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdTypeMaterial" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <Property Name="MinCount" Type="Int32" Nullable="false" />
+          <Property Name="CountInBox" Type="Int32" Nullable="false" />
+          <Property Name="TypeDimennsion" Type="Int32" Nullable="false" />
+          <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Desctiption" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TypeDimennsion1" Relationship="Self.FK_Material_TypeDimennsion" FromRole="Material" ToRole="TypeDimennsion" />
+          <NavigationProperty Name="TypeMaterial" Relationship="Self.FK_Material_TypeMaterial" FromRole="Material" ToRole="TypeMaterial" />
+          <NavigationProperty Name="MaterialBySupplier" Relationship="Self.FK_MaterialBySupplier_Material" FromRole="Material" ToRole="MaterialBySupplier" />
+        </EntityType>
+        <EntityType Name="MaterialBySupplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdMaterial" Type="Int32" Nullable="false" />
+          <Property Name="IdSupplier" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Material" Relationship="Self.FK_MaterialBySupplier_Material" FromRole="MaterialBySupplier" ToRole="Material" />
+          <NavigationProperty Name="Supplier" Relationship="Self.FK_MaterialBySupplier_Supplier" FromRole="MaterialBySupplier" ToRole="Supplier" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameSupplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdTypeSupplier" Type="Int32" Nullable="false" />
+          <Property Name="INN" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Rating" Type="Int32" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="MaterialBySupplier" Relationship="Self.FK_MaterialBySupplier_Supplier" FromRole="Supplier" ToRole="MaterialBySupplier" />
+          <NavigationProperty Name="TypeSupplier" Relationship="Self.FK_Supplier_TypeSupplier" FromRole="Supplier" ToRole="TypeSupplier" />
+        </EntityType>
+        <EntityType Name="TypeDimennsion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Material" Relationship="Self.FK_Material_TypeDimennsion" FromRole="TypeDimennsion" ToRole="Material" />
+        </EntityType>
+        <EntityType Name="TypeMaterial">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameTypeMaterial" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Material" Relationship="Self.FK_Material_TypeMaterial" FromRole="TypeMaterial" ToRole="Material" />
+        </EntityType>
+        <EntityType Name="TypeSupplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NameTypeSupplier" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Supplier" Relationship="Self.FK_Supplier_TypeSupplier" FromRole="TypeSupplier" ToRole="Supplier" />
+        </EntityType>
+        <Association Name="FK_Material_TypeDimennsion">
+          <End Role="TypeDimennsion" Type="Self.TypeDimennsion" Multiplicity="1" />
+          <End Role="Material" Type="Self.Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeDimennsion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="TypeDimennsion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Material_TypeMaterial">
+          <End Role="TypeMaterial" Type="Self.TypeMaterial" Multiplicity="1" />
+          <End Role="Material" Type="Self.Material" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeMaterial">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Material">
+              <PropertyRef Name="IdTypeMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialBySupplier_Material">
+          <End Role="Material" Type="Self.Material" Multiplicity="1" />
+          <End Role="MaterialBySupplier" Type="Self.MaterialBySupplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Material">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaterialBySupplier">
+              <PropertyRef Name="IdMaterial" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_MaterialBySupplier_Supplier">
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="1" />
+          <End Role="MaterialBySupplier" Type="Self.MaterialBySupplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="MaterialBySupplier">
+              <PropertyRef Name="IdSupplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Supplier_TypeSupplier">
+          <End Role="TypeSupplier" Type="Self.TypeSupplier" Multiplicity="1" />
+          <End Role="Supplier" Type="Self.Supplier" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypeSupplier">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Supplier">
+              <PropertyRef Name="IdTypeSupplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Session_1Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="History" EntityType="Self.History" />
+          <EntitySet Name="Material" EntityType="Self.Material" />
+          <EntitySet Name="MaterialBySupplier" EntityType="Self.MaterialBySupplier" />
+          <EntitySet Name="Supplier" EntityType="Self.Supplier" />
+          <EntitySet Name="TypeDimennsion" EntityType="Self.TypeDimennsion" />
+          <EntitySet Name="TypeMaterial" EntityType="Self.TypeMaterial" />
+          <EntitySet Name="TypeSupplier" EntityType="Self.TypeSupplier" />
+          <AssociationSet Name="FK_Material_TypeDimennsion" Association="Self.FK_Material_TypeDimennsion">
+            <End Role="TypeDimennsion" EntitySet="TypeDimennsion" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Material_TypeMaterial" Association="Self.FK_Material_TypeMaterial">
+            <End Role="TypeMaterial" EntitySet="TypeMaterial" />
+            <End Role="Material" EntitySet="Material" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialBySupplier_Material" Association="Self.FK_MaterialBySupplier_Material">
+            <End Role="Material" EntitySet="Material" />
+            <End Role="MaterialBySupplier" EntitySet="MaterialBySupplier" />
+          </AssociationSet>
+          <AssociationSet Name="FK_MaterialBySupplier_Supplier" Association="Self.FK_MaterialBySupplier_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="MaterialBySupplier" EntitySet="MaterialBySupplier" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Supplier_TypeSupplier" Association="Self.FK_Supplier_TypeSupplier">
+            <End Role="TypeSupplier" EntitySet="TypeSupplier" />
+            <End Role="Supplier" EntitySet="Supplier" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Session_1Entities">
+          <EntitySetMapping Name="History">
+            <EntityTypeMapping TypeName="Model.History">
+              <MappingFragment StoreEntitySet="History">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NameMaterial" ColumnName="NameMaterial" />
+                <ScalarProperty Name="OldCount" ColumnName="OldCount" />
+                <ScalarProperty Name="NewCount" ColumnName="NewCount" />
+                <ScalarProperty Name="DateInsert" ColumnName="DateInsert" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Material">
+            <EntityTypeMapping TypeName="Model.Material">
+              <MappingFragment StoreEntitySet="Material">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NameMaterial" ColumnName="NameMaterial" />
+                <ScalarProperty Name="IdTypeMaterial" ColumnName="IdTypeMaterial" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="MinCount" ColumnName="MinCount" />
+                <ScalarProperty Name="CountInBox" ColumnName="CountInBox" />
+                <ScalarProperty Name="TypeDimennsion" ColumnName="TypeDimennsion" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="Desctiption" ColumnName="Desctiption" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MaterialBySupplier">
+            <EntityTypeMapping TypeName="Model.MaterialBySupplier">
+              <MappingFragment StoreEntitySet="MaterialBySupplier">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IdMaterial" ColumnName="IdMaterial" />
+                <ScalarProperty Name="IdSupplier" ColumnName="IdSupplier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Supplier">
+            <EntityTypeMapping TypeName="Model.Supplier">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NameSupplier" ColumnName="NameSupplier" />
+                <ScalarProperty Name="IdTypeSupplier" ColumnName="IdTypeSupplier" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeDimennsion">
+            <EntityTypeMapping TypeName="Model.TypeDimennsion">
+              <MappingFragment StoreEntitySet="TypeDimennsion">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NameType" ColumnName="NameType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeMaterial">
+            <EntityTypeMapping TypeName="Model.TypeMaterial">
+              <MappingFragment StoreEntitySet="TypeMaterial">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NameTypeMaterial" ColumnName="NameTypeMaterial" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TypeSupplier">
+            <EntityTypeMapping TypeName="Model.TypeSupplier">
+              <MappingFragment StoreEntitySet="TypeSupplier">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="NameTypeSupplier" ColumnName="NameTypeSupplier" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
